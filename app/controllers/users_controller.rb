@@ -28,6 +28,9 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
+    if (current_user !=@user)
+       return redirect_to root_path
+    end
     if (@user.update(user_profile))
       redirect_to @user
     else
