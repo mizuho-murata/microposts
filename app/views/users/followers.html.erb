@@ -1,5 +1,6 @@
-followers list
-
+<h2>followers list</h2>
+<br>
 <% @followers.each do |user| %>
+  <%= link_to gravatar_for(user), user %>
   <%= link_to user.name, user %><br>
 <% end %>
