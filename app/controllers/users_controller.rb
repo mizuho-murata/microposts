@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update]
 
-  def show 
-   @user = User.find(params[:id])
+  def show
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.order(created_at: :desc)
   end
 
   def new
@@ -28,9 +29,6 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    if (current_user !=@user)
-       return redirect_to root_path
-    end
     if (@user.update(user_profile))
       redirect_to @user
     else
@@ -38,18 +36,6 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
-  
-  def followings
-    # @user = User.find(params[:id])
-    # @followings = @user.following_users
-  end
-  
-  def followers
-    # @user = User.find(params[:id])
-    # @followers = @user.follower_users
-    
-  end
-  
   
   private
 
